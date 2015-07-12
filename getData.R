@@ -10,4 +10,5 @@ getData <- function() {
 	hpc_df <- data.frame(hpc)
 	hpc_df$DateTime <- strptime(paste(hpc_df$Date, hpc_df$Time), "%d/%m/%Y %H:%M") 
 	hpc_df_filter <-  subset(hpc_df, as.Date(DateTime) >= "2007-02-01" & as.Date(DateTime) <= "2007-02-02")
+	return(hpc_df_filter)
 }
