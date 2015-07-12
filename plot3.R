@@ -1,22 +1,18 @@
-plot3 <- function() {
-## Plot a simple histogram
-## Bulk load, could be redesigned
+#Exploratory Data - #Assignment #1 - Graph #3
 
-options(stringsAsFactors = FALSE)
+###########################################
+#Get Data 
+###########################################
+source("getData.R")
+getData()
+###########################################
+#Generate Plot
+###########################################
+png(filename = "plot3.png", width = 480, height = 480, units = "px", pointsize = 12,  bg = "white")
+plot(hpc_df_filter$DateTime, hpc_df_filter$Sub_metering_1, type="l", ylab = "Energy sub metering", xlab="", main = "")
+lines(hpc_df_filter$DateTime, hpc_df_filter$Sub_metering_2, col = "RED")
+lines(hpc_df_filter$DateTime, hpc_df_filter$Sub_metering_3, col = "BLUE")
+legend('topright',,c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lty = c(1,1,1),col=c('black','red','blue'))
+dev.off()
 
-powerdata  <- read.delim("household_power_consumption.txt",  sep=";", header = TRUE, stringsAsFactors=FALSE )
-targetdata <- subset(powerdata, Date == "1/2/2007" | Date == "2/2/2007")
-
-targetdata$datetime <- as.POSIXlt(paste(as.Date(targetdata$Date, format="%d/%m/%Y"), targetdata$Time, sep=" "))
-
-#png(filename="./plot2.png") 	#Prepare file for plot
-plot(targetdata$datetime, as.numeric(targetdata$Sub_metering_1 	), ylab="Global Active Power (kilowatts)", xlab="",type="l")
-par(new=T)
-plot(as.numeric(targetdata$Sub_metering_2 ),type="l",axes=F,col=3)
-par(new=t)
-plot(as.numeric(targetdata$Sub_metering_3 ),type="l",axes=F,col=4)
-par(new=F)
-#dev.off()			#Close file for plot
-
-}
-
+###########################################
